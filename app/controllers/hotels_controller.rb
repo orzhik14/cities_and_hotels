@@ -1,30 +1,23 @@
 class HotelsController < ApplicationController
   before_action :set_hotel, only: [:show, :edit, :update, :destroy]
+  before_action :set_city, only: [:index, :create, :new]
 
-  # GET /hotels
-  # GET /hotels.json
   def index
-    @hotels = Hotel.all
+    @hotels = @city.hotels
   end
 
-  # GET /hotels/1
-  # GET /hotels/1.json
   def show
   end
 
-  # GET /hotels/new
   def new
     @hotel = Hotel.new
   end
 
-  # GET /hotels/1/edit
   def edit
   end
 
-  # POST /hotels
-  # POST /hotels.json
   def create
-    @hotel = Hotel.new(hotel_params)
+    @hotel = @city.hotels.new(hotel_params)
 
     respond_to do |format|
       if @hotel.save
@@ -37,8 +30,6 @@ class HotelsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /hotels/1
-  # PATCH/PUT /hotels/1.json
   def update
     respond_to do |format|
       if @hotel.update(hotel_params)
@@ -51,8 +42,6 @@ class HotelsController < ApplicationController
     end
   end
 
-  # DELETE /hotels/1
-  # DELETE /hotels/1.json
   def destroy
     @hotel.destroy
     respond_to do |format|
@@ -62,12 +51,15 @@ class HotelsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_hotel
       @hotel = Hotel.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def  set_city
+      @city = City.find(params[:city_id])
+    end
+
     def hotel_params
       params.require(:hotel).permit(:name, :rating, :city_id)
     end

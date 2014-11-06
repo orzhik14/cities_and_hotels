@@ -16,7 +16,7 @@
         <td><%= hotel.name %></td>
         <td><%= hotel.rating %></td>
         <td><%= hotel.city.name %></td>
-        <td><%= link_to 'Details', hotel %></td>
+        <td><%= link_to 'Details', hotel_path(hotel) %></td>
         <td><%= link_to 'Edit hotel', edit_hotel_path(hotel) %></td>
         <td><%= link_to 'Destroy hotel', hotel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -24,6 +24,4 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Hotel', new_hotel_path %>
+<%= link_to 'Create new hotel', new_city_hotel_path(@city) %>

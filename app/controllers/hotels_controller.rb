@@ -56,7 +56,7 @@ class HotelsController < ApplicationController
       @hotel = Hotel.find(params[:id])
     end
 
-    def  set_city
+    def set_city
       @city = City.find(params[:city_id])
     end
 

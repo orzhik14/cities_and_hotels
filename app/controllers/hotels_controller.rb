@@ -10,7 +10,7 @@ class HotelsController < ApplicationController
   end
 
   def new
-    @hotel = Hotel.new
+    @hotel = @city.hotels.new
   end
 
   def edit

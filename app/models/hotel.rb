@@ -5,4 +5,6 @@ class Hotel < ActiveRecord::Base
   validates :name, uniqueness: true, presence: true
   validates :rating, :city_id, presence: true
 
+  has_many :rooms
+
 end

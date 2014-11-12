@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
 
+  get "/rooms/:room_id/booking" => "bookings#booking"
+
+  resources :bookings
+
+  resources :rooms
+
   resources :cities do
-    resources :hotels, shallow: true
+    resources :hotels, shallow: true do
+      resources :rooms, shallow: true
+    end
   end
 
   root 'cities#index'

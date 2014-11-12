@@ -11,6 +11,7 @@ gem 'therubyracer',  platforms: :ruby
 gem "twitter-bootstrap-rails"
 gem 'jquery-rails'
 gem 'quiet_assets'
+gem 'pry-rails'
 
 # Other gems
 gem 'jbuilder', '~> 2.0'

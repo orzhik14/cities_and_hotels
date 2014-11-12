@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106091546) do
+ActiveRecord::Schema.define(version: 20141112073039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: true do |t|
+    t.string   "user_name"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "room_id"
+  end
 
   create_table "cities", force: true do |t|
     t.string   "name"
@@ -26,6 +35,13 @@ ActiveRecord::Schema.define(version: 20141106091546) do
     t.string   "name"
     t.integer  "rating"
     t.integer  "city_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rooms", force: true do |t|
+    t.integer  "hotel_id"
+    t.string   "room_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

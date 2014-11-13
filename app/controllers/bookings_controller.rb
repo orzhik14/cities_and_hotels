@@ -5,34 +5,31 @@ class BookingsController < ApplicationController
   def booking
     @room = Room.find(params[:room_id])
 
-    #TODO
-    # We need only bookings from future
 
-    @bookings = @room.bookings
+    date_start = Date.strptime(params[:date_start], '%d.%m.%Y')
+    date_end   = Date.strptime(params[:date_end],   '%d.%m.%Y')
 
+    @bookings = @room.bookings.where('date_start > ?', Time.now)
 
     dates = []
+
     @bookings.all.each {|b| dates << [b.date_start, b.date_end]}
 
 
-    # params[:date_start] and params[:date_end] contains range
-    # that customer whants to book.
+    day = date_start
 
-    user_from = params[:date_start]
-    user_to   = params[:date_end]
+    while day < date_end do
 
-    dates.each do |range|
+      dates.each do |range|
+        range_start = range[0].to_date
+        range_end   = range[1].to_date
 
-      from = range[0]
-      to = range[1]
-
-      (from..to).each do |date|
-        if date.in? user_from..user_to
-          @result = false
-          break
+        while range_start <= range_end do
+          @result = false if day == range[0].to_date
+          range_start += 1.days
         end
       end
-
+      day += 1.days
     end
 
     @result ||= true

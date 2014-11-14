@@ -4,4 +4,9 @@ class Room < ActiveRecord::Base
 
   has_many :bookings
 
+
+  def booked_for(date)
+    #TODO
+  end
+
 end

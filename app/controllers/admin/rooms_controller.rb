@@ -1,8 +1,9 @@
-class RoomsController < ApplicationController
+class Admin::RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_hotel, only: [:index, :create, :new, :show]
 
   def index
-    @rooms = @hotel.rooms
+    @rooms = @hotel.rooms.all
   end
 
   def show
@@ -20,7 +21,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to admin_hotel_rooms_path(@hotel), notice: 'Room was successfully created.' }
       else
         format.html { render :new }
       end
@@ -30,7 +31,7 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
+        format.html { redirect_to admin_hotel_rooms_path(@hotel), notice: 'Room was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -38,15 +39,20 @@ class RoomsController < ApplicationController
   end
 
   def destroy
+    @hotel = @room.hotel
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
+      format.html { redirect_to admin_hotel_rooms_path(@hotel), notice: 'Room was successfully destroyed.' }
     end
   end
 
   private
     def set_room
       @room = Room.find(params[:id])
+    end
+
+    def set_hotel
+      @hotel = Hotel.find(params[:hotel_id])
     end
 
     def room_params

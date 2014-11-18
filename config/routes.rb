@@ -2,17 +2,19 @@ Rails.application.routes.draw do
 
   get "/rooms/:room_id/booking" => "bookings#booking"
 
-  resources :bookings
-
-  resources :rooms
-
-  resources :cities do
-    resources :hotels, shallow: true do
-      resources :rooms, shallow: true
+  namespace :admin do
+    resources :cities do
+      resources :hotels, shallow: true do
+        resources :rooms, shallow: true do
+          resources :bookings, shallow: true
+        end
+      end
     end
   end
 
-  root 'cities#index'
+  # resources :bookings
+
+  root 'admin/cities#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

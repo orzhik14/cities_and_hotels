@@ -1,4 +1,4 @@
-class CitiesController < ApplicationController
+class Admin::CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -21,10 +21,8 @@ class CitiesController < ApplicationController
     respond_to do |format|
       if @city.save
         format.html { redirect_to @city, notice: 'City was successfully created.' }
-        format.json { render :show, status: :created, location: @city }
       else
         format.html { render :new }
-        format.json { render json: @city.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -32,11 +30,9 @@ class CitiesController < ApplicationController
   def update
     respond_to do |format|
       if @city.update(city_params)
-        format.html { redirect_to @city, notice: 'City was successfully updated.' }
-        format.json { render :show, status: :ok, location: @city }
+        format.html { redirect_to admin_cities_url, notice: 'City was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @city.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,8 +40,7 @@ class CitiesController < ApplicationController
   def destroy
     @city.destroy
     respond_to do |format|
-      format.html { redirect_to cities_url, notice: 'City was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to admin_cities_url, notice: 'City was successfully destroyed.' }
     end
   end
 

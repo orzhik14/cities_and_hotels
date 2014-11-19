@@ -1,98 +1,38 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
-  # Room:
-  # id, hotel_id
-
-
-  # Booking
-  # id, room_id, date_start, date_end
-
   def booking
 
-    # @room = Room.find(params[:room_id])
+    @room = Room.find(params[:room_id])
+    return if params[:date_start].nil? || params[:date_end].nil?
 
-    # return if params[:date_start].nil? || params[:date_end].nil?
+    # TODO use 'tell, don't ask!' method
+    date_start = Date.parse params[:date_start]
+    date_end   = Date.parse params[:date_end]
+    queried_dates = []
 
-    # date_start = Date.strptime(params[:date_start], '%d.%m.%Y')
-    # date_end   = Date.strptime(params[:date_end],   '%d.%m.%Y')
+    (date_start..date_end).each {|date| queried_dates << date }
 
+    @booked_days = queried_dates & @room.check_dates
 
-    # while day <= date_end
-    #   @days = @room.booked_for(day)
-    # end
+    if @booked_days.empty?
+      @new_booking = @room.bookings.create date_start: date_start, date_end: date_end
+      @new_booking.save
+    end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#    @bookings = @room.bookings.where('date_start > ?', Time.now)
-
-#    dates = []
-
-#    @bookings.all.each { |b| dates << [b.date_start, b.date_end] }
-
-#
-#  [
-#    [ Sat, 15 Nov 2014, Tue, 25 Nov 2014],
-#    [ Thu, 27 Nov 2014, Sun, 30 Nov 2014]
-#  ]
-
-
-
-#    day = date_start
-
-  #   @result = true
-
-  #   while day < date_end do
-  #     break unless @result
-  #     dates.each do |range|
-  #       range_start = range[0].to_date
-  #       range_end   = range[1].to_date
-  #       while range_start <= range_end do
-  #         @result = false if day == range_start.to_date
-  #         range_start += 1.days
-  #       end
-  #     end
-  #     day += 1.days
-  #   end
   end
 
-  # GET /bookings
-  # GET /bookings.json
   def index
     @bookings = Booking.all
   end
 
-  # GET /bookings/1
-  # GET /bookings/1.json
   def show
   end
 
-  # GET /bookings/new
   def new
     @booking = Booking.new
   end
 
-  # GET /bookings/1/edit
   def edit
   end
 

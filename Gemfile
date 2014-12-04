@@ -12,7 +12,7 @@ gem "twitter-bootstrap-rails"
 gem 'jquery-rails'
 gem 'quiet_assets'
 gem 'pry-rails'
-
+gem "rails_12factor"
 # Other gems
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc

@@ -2,8 +2,8 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def booking
-
     @room = Room.find(params[:room_id])
+
     return if params[:date_start].nil? || params[:date_end].nil?
 
     # TODO use 'tell, don't ask!' method
@@ -19,30 +19,39 @@ class BookingsController < ApplicationController
       @new_booking = @room.bookings.create date_start: date_start, date_end: date_end
       @new_booking.save
     end
-
   end
 
+  # GET /bookings
+  # GET /bookings.json
   def index
     @bookings = Booking.all
   end
 
+  # GET /bookings/1
+  # GET /bookings/1.json
   def show
   end
 
+  # GET /bookings/new
   def new
     @booking = Booking.new
   end
 
+  # GET /bookings/1/edit
   def edit
   end
 
   # POST /bookings
   # POST /bookings.json
+
+  # html, xhr
+
   def create
     @booking = Booking.new(booking_params)
 
     respond_to do |format|
       if @booking.save
+        format.js { render 'blabla.js' }
         format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else

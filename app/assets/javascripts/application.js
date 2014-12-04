@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+$(document).on('change','#city', function(event){
+  var selected_city_id = $("#city").val();
+
+  $.get("/ajax/get_hotels", {city_id: selected_city_id} );
+
+});

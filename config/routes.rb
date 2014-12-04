@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
+  get 'ajax/get_hotels'
+
+  get 'ajax/get_rooms'
+
   get "/rooms/:room_id/booking" => "bookings#booking"
+
+  get '/rooms/book' => 'rooms#book'
 
   namespace :admin do
     resources :cities do
@@ -14,7 +20,9 @@ Rails.application.routes.draw do
 
   # resources :bookings
 
-  root 'admin/cities#index'
+  root 'bookings#book'
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

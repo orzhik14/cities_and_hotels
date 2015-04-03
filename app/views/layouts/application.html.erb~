@@ -48,8 +48,8 @@
         <a class="navbar-brand" href="/">Cities And Hotels</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav" style="10px;">
-            <li><%= link_to "Cities", admin_cities_path  %></li>
-	    <li><%= link_to "Hotels of Kazan", admin_city_hotels_path(2) %></li>
+            <li style="width:30px;"><%= link_to "Cities", admin_cities_path  %></li>
+	    <li style="width:80px"><%= link_to "Hotels of Kazan", admin_city_hotels_path(2) %></li>
           </ul>
         </div>
       </div>
